@@ -1,0 +1,62 @@
+Style/Documentation:
+  Enabled: false
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+Style/Lambda:
+  EnforcedStyle: literal
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    "%i": "()"
+Style/RedundantPercentQ:
+  Enabled: false
+Style/RedundantSelf:
+  Enabled: false
+Style/RegexpLiteral:
+  EnforcedStyle: percent_r
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+Layout/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines_except_namespace
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
+Layout/LineLength:
+  Max: 120
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: aligned
+
+Metrics/AbcSize:
+  Max: 20
+Metrics/BlockLength:
+  ExcludedMethods:
+    - "it"
+    - "describe"
+    - "let"
+    - "new"
+    - "migration"
+    - "change"
+    - "shared_examples"
+    - "it_behaves_like"
+    - "context"
+Metrics/ClassLength:
+  Max: 150
+Metrics/MethodLength:
+  Max: 20
+Metrics/ParameterLists:
+  Max: 6
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
