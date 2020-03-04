@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+require "simplecov"
+SimpleCov.start
+
+Dir["./lib/**/*.rb"].sort.each { |file| require file }
+
 RSpec.configure do |config|
   config.expose_dsl_globally = false
 
