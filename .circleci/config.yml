@@ -1,0 +1,48 @@
+version: 2.1
+
+executors:
+  main:
+    docker:
+      - image: circleci/ruby:2.7
+
+commands:
+  checkout_and_bundle:
+    description: "Checkout and bundle"
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-v1-{{ arch }}-{{ .Branch }}
+            - gem-cache-v1
+      - run:
+          name: Install Bundler
+          command: gem install bundler
+      - run:
+          name: Configure Bundler
+          command: bundle config set path "vendor/bundle" && bundle config set without "development"
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+      - save_cache:
+          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+jobs:
+  build_and_test:
+    executor: main
+    steps:
+      - checkout_and_bundle
+      - run:
+          name: Running rubocop
+          command: bundle exec rubocop --parallel --config .rubocop.yml
+      - run:
+          name: Running tests
+          command: bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build_and_test
