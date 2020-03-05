@@ -3,7 +3,7 @@
 require_relative "base"
 
 module LogParser
-  module Printer
+  class Printer
     class UniqueViews < Base
 
       HEADER = "List of webpages with most unique page views ordered from most unique pages views " \

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LogParser
-  module Printer
+  class Printer
     class Base
 
       def initialize(result)

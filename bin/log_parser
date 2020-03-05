@@ -6,10 +6,8 @@ require "thor"
 require_relative "../lib/log_parser/log_file"
 require_relative "../lib/log_parser/mapper"
 require_relative "../lib/log_parser/parser"
+require_relative "../lib/log_parser/printer"
 require_relative "../lib/log_parser/result"
-
-require_relative "../lib/log_parser/writer/unique_views"
-require_relative "../lib/log_parser/writer/visits_count"
 
 module LogParser
 
@@ -22,6 +20,8 @@ module LogParser
     map %w[--help -h] => :help
 
     desc "parse [FILE]", "Parses given log file"
+    option :type,  aliases: :t, enum: %w[visits unique both], default: "both"
+    option :order, aliases: :o, enum: %w[asc desc],           default: "desc"
     def parse(log_path)
       return(puts "Log file does not exist") unless File.exist?(log_path)
 
@@ -32,12 +32,8 @@ module LogParser
 
       result = parser.call
 
-      writers = [
-        Writer::VisitsCount.new(result.by_visits_count),
-        Writer::UniqueViews.new(result.by_unique_views),
-      ]
-
-      writers.each(&:call)
+      printer = Printer.new(result: result, order: options[:order].to_sym, type: options[:type].to_sym)
+      printer.compose && printer.print
     end
 
     default_task :parse

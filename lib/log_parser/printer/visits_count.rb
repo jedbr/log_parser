@@ -3,7 +3,7 @@
 require_relative "base"
 
 module LogParser
-  module Printer
+  class Printer
     class VisitsCount < Base
 
       HEADER = "List of webpages with most page views ordered from most pages views to less page views:"
