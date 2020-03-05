@@ -5,7 +5,7 @@ require "./lib/log_parser/log_file"
 require "./lib/log_parser/mapper"
 require "./lib/log_parser/result"
 
-class LogParser
+module LogParser
 
   RSpec.describe Parser do
     let(:log_file) { LogFile.open("spec/fixtures/files/webserver.log") }

@@ -2,7 +2,7 @@
 
 require "forwardable"
 
-class LogParser
+module LogParser
   class Result
 
     extend Forwardable

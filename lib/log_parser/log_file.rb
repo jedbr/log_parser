@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class LogParser
+module LogParser
   class LogFile < File; end
 end

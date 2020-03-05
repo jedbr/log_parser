@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LogParser
+module LogParser
   class Mapper
 
     def call(row)
