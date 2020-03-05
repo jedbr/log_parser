@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "thor"
+
+require_relative "../lib/log_parser/log_file"
+require_relative "../lib/log_parser/mapper"
+require_relative "../lib/log_parser/parser"
+require_relative "../lib/log_parser/result"
+
+require_relative "../lib/log_parser/writer/unique_views"
+require_relative "../lib/log_parser/writer/visits_count"
+
+module LogParser
+
+  class Runner < Thor
+
+    def self.exit_on_failure?
+      true
+    end
+
+    map %w[--help -h] => :help
+
+    desc "parse [FILE]", "Parses given log file"
+    def parse(log_path)
+      log_file = LogFile.open(log_path)
+      mapper   = Mapper.new
+      result   = Result.new
+      parser   = Parser.new(log_file: log_file, mapper: mapper, result: result)
+
+      result = parser.call
+
+      writers = [
+        Writer::VisitsCount.new(result.by_visits_count),
+        Writer::UniqueViews.new(result.by_unique_views),
+      ]
+
+      writers.each(&:call)
+    end
+
+    default_task :parse
+
+  end
+
+  unless Runner.all_tasks.key?(ARGV[0]) || Runner.instance_variable_get(:@map)&.key?(ARGV[0])
+    ARGV.unshift(Runner.default_task)
+  end
+
+  Runner.start(ARGV)
+
+end
