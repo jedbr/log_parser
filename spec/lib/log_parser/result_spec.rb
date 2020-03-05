@@ -58,6 +58,20 @@ RSpec.describe LogParser::Result do
         ],
       )
     end
+
+    context "with order = :asc" do
+      subject { described_class.new(store).by_visits_count(:asc) }
+
+      it "returns an Array of log data ordered by visits count ascending" do
+        expect(subject).to eq(
+          [
+            { path: "/contact/1", visits_counter: 3, unique_ip_addresses: Set.new(["1.1.1.1", "2.2.2.2", "3.3.3.3"]) },
+            { path: "/home",      visits_counter: 4, unique_ip_addresses: Set.new(["2.2.2.2", "1.1.1.1"]) },
+            { path: "/help",      visits_counter: 5, unique_ip_addresses: Set.new(["1.1.1.1"]) },
+          ],
+        )
+      end
+    end
   end
 
   describe "#by_unique_views" do
@@ -71,6 +85,20 @@ RSpec.describe LogParser::Result do
           { path: "/help",      visits_counter: 5, unique_ip_addresses: Set.new(["1.1.1.1"]) },
         ],
       )
+    end
+
+    context "with order = :asc" do
+      subject { described_class.new(store).by_unique_views(:asc) }
+
+      it "returns an Array of log data ordered by number of unique views ascending" do
+        expect(subject).to eq(
+          [
+            { path: "/help",      visits_counter: 5, unique_ip_addresses: Set.new(["1.1.1.1"]) },
+            { path: "/home",      visits_counter: 4, unique_ip_addresses: Set.new(["2.2.2.2", "1.1.1.1"]) },
+            { path: "/contact/1", visits_counter: 3, unique_ip_addresses: Set.new(["1.1.1.1", "2.2.2.2", "3.3.3.3"]) },
+          ],
+        )
+      end
     end
   end
 end

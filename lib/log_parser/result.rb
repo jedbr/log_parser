@@ -24,12 +24,16 @@ module LogParser
       store.map { |path, props| props.merge(path: path) }
     end
 
-    def by_visits_count
-      to_a.sort_by { |data| -data[:visits_counter] }
+    def by_visits_count(order = :desc)
+      to_a.sort_by do |data|
+        order == :desc ? -data[:visits_counter] : data[:visits_counter]
+      end
     end
 
-    def by_unique_views
-      to_a.sort_by { |data| -data[:unique_ip_addresses].size }
+    def by_unique_views(order = :desc)
+      to_a.sort_by do |data|
+        order == :desc ? -data[:unique_ip_addresses].size : data[:unique_ip_addresses].size
+      end
     end
 
     def_delegators :@store, :==
