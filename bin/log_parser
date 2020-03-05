@@ -23,6 +23,8 @@ module LogParser
 
     desc "parse [FILE]", "Parses given log file"
     def parse(log_path)
+      return(puts "Log file does not exist") unless File.exist?(log_path)
+
       log_file = LogFile.open(log_path)
       mapper   = Mapper.new
       result   = Result.new
