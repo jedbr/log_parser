@@ -2,6 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/jedbr/log_parser.svg?style=svg)](https://circleci.com/gh/jedbr/log_parser)
 [![Maintainability](https://api.codeclimate.com/v1/badges/8149a42a64ab31552223/maintainability)](https://codeclimate.com/github/jedbr/log_parser/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8149a42a64ab31552223/test_coverage)](https://codeclimate.com/github/jedbr/log_parser/test_coverage)
 
 ## Requirements
 - Ruby 2.7
