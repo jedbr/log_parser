@@ -9,7 +9,7 @@ gem "thor"
 group :test do
   gem "rspec"
   gem "rspec_junit_formatter"
-  gem "simplecov", require: false
+  gem "simplecov", "< 0.18", require: false # FIXME: https://github.com/codeclimate/test-reporter/issues/418
 end
 
 group :development, :test do

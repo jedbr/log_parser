@@ -28,6 +28,11 @@ commands:
           key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+      - run:
+          name: Install Code Climate Test Reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
 
 jobs:
   build_and_test:
@@ -40,6 +45,12 @@ jobs:
       - run:
           name: Running tests
           command: bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml
+      - run:
+          name: Formatting Code Climate test coverage
+          command: ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
+      - run:
+          name: Uploading test coverage to Code Climate
+          command: ./cc-test-reporter sum-coverage --output - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
 
 workflows:
   version: 2
