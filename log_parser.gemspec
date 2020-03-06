@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 Gem::Specification.new do |s|
-  s.name    = "log_parser"
-  s.version = "0.0.1"
-  s.authors = "Jędrzej Bryll"
-  s.email   = "jedrzej.bryll@gmail.com"
-  s.summary = "Simple log parser"
+  s.name     = "log_parser"
+  s.version  = "0.0.1"
+  s.authors  = "Jędrzej Bryll"
+  s.email    = "jedrzej.bryll@gmail.com"
+  s.homepage = "https://github.com/jedbr/log_parser"
+  s.summary  = "Simple log parser"
+  s.license  = "MIT"
 
   s.files         = Dir["bin/*"] + Dir["lib/**/*.rb"] + Dir["spec/**/*"]
   s.test_files    = Dir["spec/**/*"]
