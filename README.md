@@ -14,7 +14,7 @@
    ```
 2. Move to the directory
    ```bash
-   $ cd log_parser
+   cd log_parser
    ```
 3. Build gem
    ```bash
